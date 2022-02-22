@@ -1,0 +1,45 @@
+version: "3.8"
+
+networks:
+    nginx-php-mysql:
+
+services:
+    app:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        container_name: app
+        restart: always
+        working_dir: /var/www/
+        volumes:
+            - ../:/var/www
+        expose:
+            - "9000"
+        networks:
+            - nginx-php-mysql
+
+    nginx:
+        image: nginx
+        container_name: web-server
+        restart: always
+        ports:
+            - "8000:80"
+        volumes:
+            - ../:/var/www
+            - ./nginx:/etc/nginx/conf.d
+        networks:
+            - nginx-php-mysql
+
+    mysql:
+        image: mysql
+        container_name: mysql
+        ports:
+            - "3306:3306"
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: silverstripe
+            MYSQL_PASSWORD: silverstripe
+            MYSQL_DATABASE: silverstripe
+        networks:
+            - nginx-php-mysql
