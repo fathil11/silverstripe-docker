@@ -5,7 +5,7 @@ A simple docker compose set up for development in SilverStripe 4 framework.
 1. Docker
 2. Docker Compose
 
-## How to use:
+## How to use
 1. Clone this repository inside your SilverStripe 4 project.
 2. Setup MySQL password inside dokcer-compose.yaml file.
 3. Run ```docker-compose up -d``` command.
